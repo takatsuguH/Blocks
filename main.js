@@ -1,5 +1,5 @@
+let canvas, ctx;
 const width = 360, height = 640;
-
 
 let paddle;
 
@@ -8,11 +8,10 @@ class Block{
         this.x = x;
         this.y = y;
         this.w = w;
-        this.hw = h;
+        this.h = h;
         this.col = col;
-        this.stroke = stroke
+        this.stroke = stroke;
     }
-
 
     draw(){
         drawRect(this.x, this.y, this.w, this.h, this.col, this.stroke);
@@ -46,11 +45,13 @@ function init(){
 }
 
 function start(){
-    paddle = new paddle(width/2, 500)
+    paddle = new Paddle(width/2, 560)
 }
 
 function loop(){
     drawRect(0, 0, width, height, "ivory");
+
+    paddle.draw();
     
     requestAnimationFrame(loop);
 }
