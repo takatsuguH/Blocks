@@ -4,7 +4,7 @@ const width = 360, height = 640;
 let paddle;
 
 class Block{
-    constructor(x, y, w, h, col, stroke9){
+    constructor(x, y, w, h, col, stroke){
         this.x = x;
         this.y = y;
         this.w = w;
