@@ -132,6 +132,14 @@ function collision(){
     if(ball.y-ball.r < 0){
         ball.vy *= -1;
     }
+    if(ball.y+ball.r > paddle.y && ball.y+ball.r < paddle.y+5
+    && ball.x+ball.r > paddle.x && ball.x-ball.r < paddle.x+paddle.w){
+        let x = ball.x-(paddle.x+paddle.w/2);
+        let y = (paddle.y+paddle.h)-ball.y;
+        ball.a = Math.atan2(y, x)*180/Math.PI;
+        ball.vx = Math.cos(ball.a*Math.PI/180)*ball.speed;
+        ball.vy = -Math.sin(ball.a*Math.PI/180)*ball.speed;
+    }
 
 }
 
