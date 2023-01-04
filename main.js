@@ -12,10 +12,18 @@ class Block{
         this.col = col;
         this.stroke = stroke
     }
+
+
+    draw(){
+        drawRect(this.x, this.y, this.w, this.h, this.col, this.stroke);
+    }
 }
 
-drawRect(){
-    drawRect(this.x, this.y, this.w, this.h, this,col, this.stroke);
+class Paddle extends Block{
+    constructor(x, y){
+        super(x, y, 70, 15, "lime", true);
+        this.x -= this.w/2
+    }
 }
 
 function drawRect(x, y, w, h, col, stroke=false){
