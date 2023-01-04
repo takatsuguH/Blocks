@@ -70,9 +70,15 @@ function loop(){
 
     paddle.move();
 
+    collision();
+
     paddle.draw();
     
     requestAnimationFrame(loop);
+}
+
+function collision(){
+    paddle.x = Math.min(Math.max(paddle.x, 0), width-paddle.w);
 }
 
 onload = init;
