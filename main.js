@@ -3,7 +3,7 @@ const width = 360, height = 640;
 
 let keyRight = false, keyLeft = false;
 
-let paddle;
+let paddle, ball;
 
 class Block{
     constructor(x, y, w, h, col, stroke){
@@ -87,6 +87,7 @@ function init(){
 
 function start(){
     paddle = new Paddle(width/2, 560)
+    ball = new Ball();
 }
 
 function loop(){
