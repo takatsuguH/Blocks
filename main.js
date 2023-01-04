@@ -8,6 +8,7 @@ let blocks = [];
 
 const colors = ["red", "orange", "fuchsia", "lightgreen", "chocolate"];
 let score = 0;
+let scene = "playing";
 
 class Block{
     constructor(x, y, w, h, col, stroke){
@@ -89,7 +90,7 @@ function drawCircle(x, y, r, col, stroke=false){
 }
 
 function drawText(text, x, y, col, size, pos="center"){
-    ctx.font = `boid ${size}px monospace`;
+    ctx.font = `bold ${size}px monospace`;
     ctx.textBaseline = "to";
     if(pos == "center") ctx.tetAlign = "center";
     if(pos == "right") ctx.textAlign = "right";
@@ -132,20 +133,31 @@ function start(){
 }
 
 function loop(){
-    drawRect(0, 0, width, height, "ivory");
+    drawRect(0, 0, width, height, "ivory"); 
 
-    paddle.move();
-    
-    ball.move();
+    if(scene == "playing"){
+        paddle.move();
+        ball.move();
 
-    collision();
+        collision();
+
+        if(ball.y > height+100){
+            start();
+        }
+        if(blocks.length == 0){
+            scene = "clear";
+        }
+    }
 
     blocks.forEach(block => {
         block.draw();
     });
     paddle.draw();
     ball.draw(); 
-    drawText("SCORE*"+("000"+score).slice(-3), width-5, 5, "green", 22, "right");
+    drawText("SCORE:"+("000"+score).slice(-3), width-5, 30, "green", 22, "right");
+    if(scene == "playing"){
+        drawText("CLEAR!", width/4*3, 250, "gold", 50);
+    }
 
     requestAnimationFrame(loop);
 }
