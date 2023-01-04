@@ -1,7 +1,7 @@
 let canvas, ctx;
 const width = 360, height = 640;
 
-let keyRight = false, keyLeft = false;
+let keyRight = false, keyLeft = false, keySpace = false;
 
 let paddle, ball;
 
@@ -43,11 +43,21 @@ class Ball{
         this.col = "yellow";
         this.stroke = true;
         this.onMove = false;
+        this.speed = 4;
+        this.a = 30+Math.floor(Math.random()*50);
+        this.vx = Math.cos(this.a*Math.PI/180)*this.speed;
+        this.vy = -Math.sin(this.a*Math.PI/180)*this.speed;
     }
 
     move(){
         if(!this.onMove){
             this.x = paddle.x+paddle.w/2;
+            if(keySpace){
+                this.onMve = rue;
+            }
+        }else{
+            this.x += this.vx;
+            this.y += this.vy;
         }
     }
 
@@ -83,10 +93,12 @@ function init(){
     addEventListener("keydown", (e) => {
         if(e.key == "ArrowRight") keyRight = true;
         if(e.key == "ArrowLeft") keyLeft = true;
+        if(e.key == " ") keySpace = true;
     });
     addEventListener("keyup", (e) => {
         if(e.key == "ArrowRight") keyRight = false;
         if(e.key == "ArrowLeft") keyLeft = false;
+        if(e.key == " ") keySpace = false;
     });
 
     start();
