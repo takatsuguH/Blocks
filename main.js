@@ -43,7 +43,7 @@ class Ball{
     }
 
     draw(){
-        drawCircle(this.x, this.y, this.r, this.col, this.strole);
+        drawCircle(this.x, this.y, this.r, this.col, this.stroke);
     }
 }
 
@@ -98,6 +98,7 @@ function loop(){
     collision();
 
     paddle.draw();
+    ball.draw(); 
     
     requestAnimationFrame(loop);
 }
