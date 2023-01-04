@@ -40,6 +40,13 @@ class Ball{
         this.y = paddle.y-this.r;
         this.col = "yellow";
         this.stroke = true;
+        this.onMove = false;
+    }
+
+    move(){
+        if(!this.onMove){
+            this.x = paddle.x+paddle.w/2;
+        }
     }
 
     draw(){
@@ -99,7 +106,7 @@ function loop(){
 
     paddle.draw();
     ball.draw(); 
-    
+
     requestAnimationFrame(loop);
 }
 
