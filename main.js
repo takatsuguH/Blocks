@@ -4,6 +4,9 @@ const width = 360, height = 640;
 let keyRight = false, keyLeft = false, keySpace = false;
 
 let paddle, ball;
+let blocks = [];
+
+const colors = ["red", "orange", "fuchsia", "lightgreen", "chocolate"];
 
 class Block{
     constructor(x, y, w, h, col, stroke){
@@ -107,8 +110,14 @@ function init(){
 }
 
 function start(){
-    paddle = new Paddle(width/2, 560)
+    paddle = new Paddle(width/2, 560);
     ball = new Ball();
+    blocks = [];
+    for(let i = 0; i < 5; i++){
+        for(let j = 0; j < 5; j++){
+            blocks.push(new Block(35+j*60, 50+i*30, 50, 15, colors[i], true));
+        }
+    }
 }
 
 function loop(){
@@ -118,6 +127,10 @@ function loop(){
     ball.move();
 
     collision();
+
+blocks.forEach(block => {
+    block.draw();
+});
 
     paddle.draw();
     ball.draw(); 
@@ -140,6 +153,32 @@ function collision(){
         ball.vx = Math.cos(ball.a*Math.PI/180)*ball.speed;
         ball.vy = -Math.sin(ball.a*Math.PI/180)*ball.speed;
     }
+    blocks.forEach((block, i) => {
+        if(ball.y-ball.r < block.y+block.h && ball.y-ball.r > block.y+block.h-5
+        && ball.x+ball.r > block.x && ball.x-ball.r < block.x+block.w){
+            ball.y = block.y+block.h+ball.r;
+            ball.vy *= -1;
+            blocks.splice(i, 1);
+        }
+        if(ball.y+ball.r > block.y && ball.y+ball.r < block.y+5
+        && ball.x+ball.r > block.x && ball.x-ball.r < block.x+block.w){
+            ball.y = block.y-ball.r;
+            ball.vy *= -1;
+            blocks.splice(i, 1);
+        }
+        if(ball.x+ball.r > block.x && ball.x+ball.r < block.x+5
+        && ball.y+ball.r > block.y && ball.y-ball.r < block.y+block.h){
+            ball.x = block.x-ball.r;
+            ball.vx *= -1;
+            blocks.splice(i, 1);
+        }
+        if(ball.x-ball.r < block.x+block.w && ball.x-ball.r > block.x+block.w-5
+        && ball.y+ball.r > block.y && ball.y-ball.r < block.y+block.h){
+            ball.x = block.x+block.w+ball.r;
+            ball.vx *= -1;
+            blocks.splice(i, 1);
+        }
+    });
 
 }
 
