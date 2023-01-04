@@ -48,7 +48,11 @@ function init(){
     canvas.height = height;
 
     addEventListener("keydown", (e) => {
-        if(e,key == "ArrowRight") keyRight = false;
+        if(e.key == "ArrowRight") keyRight = true;
+        if(e.key == "ArrowLeft") keyLeft = true;
+    });
+    addEventListener("keyup", (e) => {
+        if(e.key == "ArrowRight") keyRight = false;
         if(e.key == "ArrowLeft") keyLeft = false;
     });
 
