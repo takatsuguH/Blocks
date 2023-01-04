@@ -38,7 +38,7 @@ function init(){
 }
 
 function start(){
-    paddle = enw paddle(width/2, 500)
+    paddle = new paddle(width/2, 500)
 }
 
 function loop(){
