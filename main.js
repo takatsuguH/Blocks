@@ -30,6 +30,8 @@ class Paddle extends Block{
     move(){
         if(keyRight) this.x += this.speed;
         if(keyLeft) this.x -= this.speed;
+
+        paddle.x = Math.min(Math.max(paddle.x, 0), width-paddle.w);
     }
 }
 
@@ -112,7 +114,7 @@ function loop(){
 }
 
 function collision(){
-    paddle.x = Math.min(Math.max(paddle.x, 0), width-paddle.w);
+
 }
 
 onload = init;
