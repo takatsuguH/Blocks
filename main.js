@@ -126,6 +126,12 @@ function loop(){
 }
 
 function collision(){
+    if(ball.x+ball.r > width || ball.x-ball.r < 0){
+        ball.vx *= -1;
+    }
+    if(ball.y-ball.r < 0){
+        ball.vy *= -1;
+    }
 
 }
 
