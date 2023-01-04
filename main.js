@@ -7,6 +7,7 @@ let paddle, ball;
 let blocks = [];
 
 const colors = ["red", "orange", "fuchsia", "lightgreen", "chocolate"];
+let score = 0;
 
 class Block{
     constructor(x, y, w, h, col, stroke){
@@ -87,6 +88,15 @@ function drawCircle(x, y, r, col, stroke=false){
     }
 }
 
+function drawText(text, x, y, col, size, pos="center"){
+    ctx.font = `boid ${size}px monospace`;
+    ctx.textBaseline = "to";
+    if(pos == "center") ctx.tetAlign = "center";
+    if(pos == "right") ctx.textAlign = "right";
+    ctx.fillStyle = col;
+    ctx.fillText(text, x, y);
+}
+
 function init(){
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
@@ -110,6 +120,7 @@ function init(){
 }
 
 function start(){
+    score = 0;
     paddle = new Paddle(width/2, 560);
     ball = new Ball();
     blocks = [];
@@ -124,16 +135,17 @@ function loop(){
     drawRect(0, 0, width, height, "ivory");
 
     paddle.move();
+    
     ball.move();
 
     collision();
 
-blocks.forEach(block => {
-    block.draw();
-});
-
+    blocks.forEach(block => {
+        block.draw();
+    });
     paddle.draw();
     ball.draw(); 
+    drawText("SCORE*"+("000"+score).slice(-3), width-5, 5, "green", 22, "right");
 
     requestAnimationFrame(loop);
 }
@@ -153,30 +165,35 @@ function collision(){
         ball.vx = Math.cos(ball.a*Math.PI/180)*ball.speed;
         ball.vy = -Math.sin(ball.a*Math.PI/180)*ball.speed;
     }
+
     blocks.forEach((block, i) => {
         if(ball.y-ball.r < block.y+block.h && ball.y-ball.r > block.y+block.h-5
         && ball.x+ball.r > block.x && ball.x-ball.r < block.x+block.w){
             ball.y = block.y+block.h+ball.r;
             ball.vy *= -1;
             blocks.splice(i, 1);
+            score += 10;
         }
         if(ball.y+ball.r > block.y && ball.y+ball.r < block.y+5
         && ball.x+ball.r > block.x && ball.x-ball.r < block.x+block.w){
             ball.y = block.y-ball.r;
             ball.vy *= -1;
             blocks.splice(i, 1);
+            score += 10;
         }
         if(ball.x+ball.r > block.x && ball.x+ball.r < block.x+5
         && ball.y+ball.r > block.y && ball.y-ball.r < block.y+block.h){
             ball.x = block.x-ball.r;
             ball.vx *= -1;
             blocks.splice(i, 1);
+            score += 10;
         }
         if(ball.x-ball.r < block.x+block.w && ball.x-ball.r > block.x+block.w-5
         && ball.y+ball.r > block.y && ball.y-ball.r < block.y+block.h){
             ball.x = block.x+block.w+ball.r;
             ball.vx *= -1;
             blocks.splice(i, 1);
+            score += 10;
         }
     });
 
