@@ -53,7 +53,7 @@ class Ball{
         if(!this.onMove){
             this.x = paddle.x+paddle.w/2;
             if(keySpace){
-                this.onMve = rue;
+                this.onMove = true;
             }
         }else{
             this.x += this.vx;
