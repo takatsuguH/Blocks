@@ -101,6 +101,7 @@ function loop(){
     drawRect(0, 0, width, height, "ivory");
 
     paddle.move();
+    ball.move();
 
     collision();
 
