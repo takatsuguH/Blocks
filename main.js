@@ -33,11 +33,35 @@ class Paddle extends Block{
     }
 }
 
+class Ball{
+    constructor(){
+        this.r = 8;
+        this.x = paddle.x+paddle.w/2;
+        this.y = paddle.y-this.r;
+        this.col = "yellow";
+        this.stroke = true;
+    }
+
+    draw(){
+        drawCircle(this.x, this.y, this.r, this.col, this.strole);
+    }
+}
+
 function drawRect(x, y, w, h, col, stroke=false){
     ctx.fillStyle = col;
     ctx.fillRect(x ,y ,w ,h);
     if(stroke){
         ctx.strokeRect(x, y, w, h);
+    }
+}
+
+function drawCircle(x, y, r, col, stroke=false){
+    ctx.beginPath();
+    ctx.fillStyle = col;
+    ctx.arc(x, y, r, 0, 2*Math.PI);
+    ctx.fill();
+    if(stroke){
+        ctx.stroke();
     }
 }
 
